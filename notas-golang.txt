@@ -1,2 +1,2 @@
-go build hello.go 
-go run hello.go
+go build hello.go - Para buildar o código
+go run hello.go - Para buildar e rodar o código
