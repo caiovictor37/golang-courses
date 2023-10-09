@@ -1,2 +1,37 @@
+1- Hello World
 go build hello.go - Para buildar o código
 go run hello.go - Para buildar e rodar o código
+
+2- Variáveis
+Se a variável não for inicializada:
+string - ""
+int - 0
+float32 - 0.0
+Se a variável não for utilizada, o programa não compila nem inicializa por questões de clean code
+
+2.1- Inferência de tipos
+Declarações explícitas de variáveis
+var name string = "Caio Baeta"
+var age int = 31
+var version float32 = 1.2
+
+Inferência de variáveis
+var name = "Caio Baeta"
+var age = 31
+var version = 1.2
+
+Atribuição de variáveis curto
+name := "Caio Baeta"
+age := 31
+version := 1.2
+
+2.2- Leitura e escrita em terminal (pacote fmt)
+	fmt.Println("1- Start monitoring")
+	fmt.Println("2- Show logs")
+	fmt.Println("0- Exit")
+	var command int
+	fmt.Scanf("%d", &command) // Scan da entrada sem inferência
+	fmt.Scan(&command) // Scan da entrada com inferência
+	fmt.Println("You chose option", command)
+	
+OBS: O Go não aceita colocar uma coisa inválida (ex: "a" na variável int)
