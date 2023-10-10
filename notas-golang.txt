@@ -78,3 +78,37 @@ func chooseOption() int {
 	fmt.Println("You chose option", option)
 	return option
 }
+
+Funções com múltiplos retornos
+func nameAndSurname() (string, string) {
+	var name string
+	var surname string
+	fmt.Scanf("%s", &name)
+	fmt.Scanf("%s", &surname)
+	return name, surname
+}
+
+OBS: para ignorar uma das variáveis no uso da função, usar _. Exemplo:
+name, surname := nameAndSurname()
+_, surname := nameAndSurname() // Ignorando nome
+name, _ := nameAndSurname() // Ignorando sobrenome
+
+4- Requisições WEB (Pacote net/http)
+func startMonitoring() {
+	url := "https://www.alura.com.br"
+	resp, err := http.Get(url) // Resposta e Erro
+	// fmt.Println(resp)
+	if err == nil {
+		if resp.StatusCode == 200 {
+			fmt.Println("Successful", resp.StatusCode)
+		} else {
+			fmt.Println("HTTP Status Error", resp.StatusCode)
+		}
+	} else {
+		fmt.Println("Error", err)
+	}
+}
+
+4.1 Laços
+for { // Loop infinito
+}

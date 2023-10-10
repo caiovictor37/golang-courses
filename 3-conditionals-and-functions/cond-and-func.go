@@ -23,9 +23,13 @@ func main() {
 
 	switch command {
 	case 1:
-		fmt.Println("Start monitoring")
+		fmt.Println("Type name and surname")
+		name, surname := nameAndSurname()
+		fmt.Print(name, surname)
 	case 2:
-		fmt.Println("Show logs")
+		fmt.Println("Type name and surname")
+		name, _ := nameAndSurname()
+		fmt.Print(name)
 	case 0:
 		fmt.Println("Exit code succesfully")
 		os.Exit(0)
@@ -47,4 +51,11 @@ func chooseOption() int {
 	fmt.Scan(&option)
 	fmt.Println("You chose option", option)
 	return option
+}
+
+func nameAndSurname() (string, string) {
+	var name string
+	var surname string
+	fmt.Scan(&name, &surname)
+	return name, surname
 }
