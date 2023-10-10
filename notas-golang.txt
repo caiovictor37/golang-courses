@@ -35,3 +35,46 @@ version := 1.2
 	fmt.Println("You chose option", command)
 	
 OBS: O Go não aceita colocar uma coisa inválida (ex: "a" na variável int)
+
+3- Condicionais e Funções
+3.1- if / else if / else (sempre aceita expressões booleanas)
+	if command == 1 {
+		fmt.Println("Start monitoring")
+	} else if command == 2 {
+		fmt.Println("Show logs")
+	} else if command == 0 {
+		fmt.Println("Exit")
+	} else {
+		fmt.Println("Invalid option")
+	}
+	
+3.2 switch case
+	switch command {
+	case 1:
+		fmt.Println("Start monitoring")
+	case 2:
+		fmt.Println("Show logs")
+	case 0:
+		fmt.Println("Exit")
+	default:
+		fmt.Println("Invalid option")
+	}
+
+OBS: Go não precisa de break no final de cada switch case, pois só executa o trecho de código dentro da condicional tratada
+
+3.3- Funções
+Funções void (sem retorno)
+func showOptions() {
+	fmt.Println("1- Start monitoring")
+	fmt.Println("2- Show logs")
+	fmt.Println("0- Exit")
+}
+
+Funções retornando um tipo (ex: inteiro)
+func chooseOption() int {
+	var option int
+	// fmt.Scanf("%d", &command)
+	fmt.Scan(&option)
+	fmt.Println("You chose option", option)
+	return option
+}

@@ -8,6 +8,19 @@ import (
 func main() {
 	showOptions()
 	command := chooseOption()
+
+	// if command == 1 {
+	// 	fmt.Println("Start monitoring")
+	// } else if command == 2 {
+	// 	fmt.Println("Show logs")
+	// } else if command == 0 {
+	// 	fmt.Println("Exit")
+	// 	os.Exit(0)
+	// } else {
+	// 	fmt.Println("Invalid option")
+	// 	os.Exit(-1)
+	// }
+
 	switch command {
 	case 1:
 		fmt.Println("Start monitoring")
