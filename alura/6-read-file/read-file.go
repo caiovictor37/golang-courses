@@ -69,7 +69,6 @@ func readFile(path string) []string {
 		line, err := reader.ReadString('\n')
 		line = strings.TrimSpace(line)
 		sites = append(sites, line)
-
 		if err == io.EOF {
 			break
 		}
