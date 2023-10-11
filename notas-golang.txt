@@ -3,7 +3,7 @@ go build hello.go - Para buildar o código
 go run hello.go - Para buildar e rodar o código
 
 2- Variáveis
-Se a variável não for inicializada:
+Se a variável não for inicializada, ela assume um valor padrão:
 string - ""
 int - 0
 float32 - 0.0
@@ -112,3 +112,29 @@ func startMonitoring() {
 4.1 Laços
 for { // Loop infinito
 }
+
+for i:=0;i<len(sitesSlice);i++ { // Loop tradicional por iteração de índice
+	fmt.Println(sitesSlice[i])
+}
+
+for i, site := range sitesArray { // Loop by range, retorna o índice iterado e/ou o elemento iterado. Usar _ para ignorar um ou o outro
+	fmt.Println(site)
+}
+
+5 Collections
+5.1 Arrays
+var sitesArray [4]string - Precisa informar o tamanho do array, pois tem tamanho fixo
+sitesArray[0] = "https://random-status-code.herokuapp.com"
+sitesArray[1] = "https://www.alura.com.br"
+sitesArray[2] = "https://www.caelum.com.br"
+	
+5.2 Slices
+sitesSlice := []string{"https://random-status-code.herokuapp.com", - Slices tem tamanho variável e trabalham com Arrays debaixo dos panos
+		"https://www.alura.com.br",
+		"https://www.caelum.com.br"}
+		
+		
+sitesSlice = append(sitesSlice, "https://www.google.com.br") - Adiciona um item no slice
+len(sitesSlice) - Tamanho do slice
+cap(sitesSlice) - Capacidade do slice (dobra quando passa do limite inicial)
+
