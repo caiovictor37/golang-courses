@@ -37,7 +37,6 @@ func showOptions() {
 
 func chooseOption() int {
 	var option int
-	// fmt.Scanf("%d", &command)
 	fmt.Scan(&option)
 	fmt.Println("You chose option", option)
 	return option
