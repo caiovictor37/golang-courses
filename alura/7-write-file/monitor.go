@@ -6,7 +6,9 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -19,6 +21,7 @@ func main() {
 			startMonitoring()
 		case 2:
 			fmt.Println("Show logs")
+			printLogs()
 		case 0:
 			fmt.Println("Exit code succesfully")
 			os.Exit(0)
@@ -51,8 +54,10 @@ func startMonitoring() {
 		if err == nil {
 			if resp.StatusCode == 200 {
 				fmt.Println("Site", site, "HTTP Status Successful", resp.StatusCode)
+				registerLog(site, true)
 			} else {
 				fmt.Println("Site", site, "HTTP Status Error", resp.StatusCode)
+				registerLog(site, false)
 			}
 		} else {
 			fmt.Println("Site", site, "Error", err)
@@ -74,6 +79,26 @@ func readFile(path string) []string {
 		}
 	}
 	file.Close()
-	fmt.Println(sites)
+	// fmt.Println(sites)
 	return sites
+}
+
+func registerLog(site string, status bool) {
+	file, err := os.OpenFile("logs.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		fmt.Println("Error opening file", err)
+	}
+	//https://pkg.go.dev/time#pkg-constants or https://go.dev/src/time/format.go: Documentation to format timestamp
+	file.WriteString(time.Now().Format("2006-01-02 15:04:05") + " - " + site + " - online: " + strconv.FormatBool(status) + "\n")
+
+	file.Close()
+}
+
+func printLogs() {
+	file, err := os.ReadFile("logs.txt")
+	if err != nil {
+		fmt.Println("Error opening file", err)
+	}
+	fmt.Println(string(file))
+
 }
