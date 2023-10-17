@@ -3,10 +3,12 @@ go build hello.go - Para buildar o código
 go run hello.go - Para buildar e rodar o código
 
 2- Variáveis
-Se a variável não for inicializada, ela assume um valor padrão:
+Se a variável não for inicializada, ela assume um valor padrão (inicialização zero, ou "zero initialization"):
 string - ""
 int - 0
 float32 - 0.0
+bool - false
+struct - {}
 Se a variável não for utilizada, o programa não compila nem inicializa por questões de clean code
 
 2.1- Inferência de tipos
@@ -138,3 +140,24 @@ sitesSlice = append(sitesSlice, "https://www.google.com.br") - Adiciona um item 
 len(sitesSlice) - Tamanho do slice
 cap(sitesSlice) - Capacidade do slice (dobra quando passa do limite inicial)
 
+6 Structs
+	type Account struct {
+		name          string
+		agencyNumber  int
+		accountNumber int
+		balance       float64
+	}
+
+Modos de iniciar a struct:
+	account1 := Account{
+		name:          "Caio Baeta",
+		agencyNumber:  1234,
+		accountNumber: 5678,
+		balance:       1000.00,
+	}
+	account2 := Account{
+		"Caio Baeta",
+		1234,
+		5678,
+		1000.00,
+	}
