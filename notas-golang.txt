@@ -90,6 +90,15 @@ func nameAndSurname() (string, string) {
 	return name, surname
 }
 
+Funções variáticas com múltiplas entradas
+func sum(numbers ...int) int {
+    sumResult := 0
+    for _, number := range numbers {
+        sumResult += number
+    }
+    return sumResult
+}
+
 OBS: para ignorar uma das variáveis no uso da função, usar _. Exemplo:
 name, surname := nameAndSurname()
 _, surname := nameAndSurname() // Ignorando nome
@@ -148,7 +157,7 @@ cap(sitesSlice) - Capacidade do slice (dobra quando passa do limite inicial)
 		balance       float64
 	}
 
-Modos de iniciar a struct:
+6.1 Modos de iniciar a struct:
 	account1 := Account{
 		name:          "Caio Baeta",
 		agencyNumber:  1234,
@@ -161,3 +170,56 @@ Modos de iniciar a struct:
 		5678,
 		1000.00,
 	}
+	fmt.Println(account1 == account2) // true, pois compara valores
+
+7 Pointers
+	// New objects with pointers
+	var account3 *Account
+	account3 = new(Account)
+	// account3 := new(Account) // Declaração direta de ponteiro (2 linhas acima)
+	account3.name = "Caio Baeta"
+	account3.agencyNumber = 1234
+	account3.accountNumber = 5678
+	account3.balance = 1000.00
+
+	var account4 *Account
+	account4 = new(Account)
+	// account4 := new(Account) // Declaração direta de ponteiro (2 linhas acima)
+	account4.name = "Caio Baeta"
+	account4.agencyNumber = 1234
+	account4.accountNumber = 5678
+	account4.balance = 1000.00
+	fmt.Println(account3)  // Pointer
+	fmt.Println(account4)  // Pointer
+	fmt.Println(*account3) // Value of pointer
+	fmt.Println(*account4) // Value of pointer
+	fmt.Println(&account3) // Address of pointer
+	fmt.Println(&account4) // Address of pointer
+	fmt.Println(account3 == account4) // false
+	fmt.Println(&account3 == &account4) // false
+	fmt.Println(*account3 == *account4) // true
+	
+7.1 Struct function with pointer
+	func (c *Account) Withdraw(value float64) string {
+		if value > 0 && value > c.balance {
+			return "Can't withdraw this value"
+		}
+		c.balance -= value
+		return fmt.Sprintf("Withdrawal of $%.2f successful", value)
+	}
+
+	func main() {
+		account := new(Account)
+		account.name = "Caio Baeta"
+		account.agencyNumber = 1234
+		account.accountNumber = 5678
+		account.balance = 1000.00
+
+		fmt.Println(account)
+		fmt.Println(account.Withdraw(800))
+		fmt.Println(account)
+		fmt.Println(account.Withdraw(800))
+		fmt.Println(account)
+	}
+	
+

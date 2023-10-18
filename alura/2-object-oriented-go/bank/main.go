@@ -9,19 +9,24 @@ type Account struct {
 	balance       float64
 }
 
+func (c *Account) Withdraw(value float64) string {
+	if value > 0 && value > c.balance {
+		return "Can't withdraw this value"
+	}
+	c.balance -= value
+	return fmt.Sprintf("Withdrawal of $%.2f successful", value)
+}
+
 func main() {
-	account1 := Account{
-		name:          "Caio Baeta",
-		agencyNumber:  1234,
-		accountNumber: 5678,
-		balance:       1000.00,
-	}
-	account2 := Account{
-		"Caio Baeta",
-		1234,
-		5678,
-		1000.00,
-	}
-	fmt.Println(account1)
-	fmt.Println(account2)
+	account := new(Account)
+	account.name = "Caio Baeta"
+	account.agencyNumber = 1234
+	account.accountNumber = 5678
+	account.balance = 1000.00
+
+	fmt.Println(account)
+	fmt.Println(account.Withdraw(800))
+	fmt.Println(account)
+	fmt.Println(account.Withdraw(800))
+	fmt.Println(account)
 }
