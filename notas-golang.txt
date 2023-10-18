@@ -222,4 +222,87 @@ cap(sitesSlice) - Capacidade do slice (dobra quando passa do limite inicial)
 		fmt.Println(account)
 	}
 	
+8 Packages and Visibility
+// Para importar um pacote: colocar todo o caminho depois do src/..., ou seja, os ...
+package main
 
+import (
+	"fmt"
+	"golang-courses/alura/2-object-oriented-go/bank/accounts" // Exemplo de import, a partir do folder depois de src/
+)
+
+func main() {
+	account := new(accounts.Account)
+	account.name = "Caio Baeta"
+	account.agencyNumber = 1234
+	account.accountNumber = 5678
+	account.balance = 1000.00
+
+	fmt.Println(account)
+	fmt.Println(account.Withdraw(800))
+	fmt.Println(account)
+	fmt.Println(account.Withdraw(800))
+	fmt.Println(account)
+	fmt.Println(account.Deposit(800))
+	fmt.Println(account)
+	fmt.Println(account.Deposit(-800))
+	fmt.Println(account)
+
+	account2 := new(accounts.Account)
+	account2.name = "Test User"
+	account2.agencyNumber = 4321
+	account2.accountNumber = 8765
+	account2.balance = 1000.00
+
+	fmt.Println(account.transferToAccount(account2, 500))
+	fmt.Println(account)
+	fmt.Println(account2)
+	fmt.Println(account2.transferToAccount(account, 200))
+	fmt.Println(account)
+	fmt.Println(account2)
+	fmt.Println(account2.transferToAccount(account, -200))
+	fmt.Println(account)
+	fmt.Println(account2)
+	fmt.Println(account2.transferToAccount(account, 20000))
+	fmt.Println(account)
+	fmt.Println(account2)
+}
+
+// O arquivo está em um package que é o folder, então Account foi colocado no pacote accounts
+package accounts
+
+import "fmt"
+
+// Se as variáveis iniciarem com minúsculo, são private. Com maiúsculo, se tornam públicas
+type Account struct {
+	Name          string  // Pública
+	AgencyNumber  int	  // Pública
+	AccountNumber int	  // Pública
+	balance       float64 // Privada
+}
+
+func (c *Account) Withdraw(value float64) string {
+	if value < 0 || value > c.balance {
+		return "Can't withdraw this value"
+	}
+	c.balance -= value
+	return fmt.Sprintf("Withdrawal of $%.2f successful", value)
+}
+
+func (c *Account) Deposit(value float64) string {
+	if value < 0 {
+		return "Can't deposit this value"
+	}
+	c.balance += value
+	return fmt.Sprintf("Deposit of $%.2f successful", value)
+}
+
+// O mesmo vale para funções: iniciou com minúsculo, função privada. Maiúsculo, função pública
+func (c *Account) transferToAccount(account *Account, value float64) string {
+	if value < 0 || value > c.balance {
+		return "Can't transfer this value"
+	}
+	account.balance += value
+	c.balance -= value
+	return fmt.Sprintf("Transfer of $%.2f from "+c.name+" to "+account.name+" successful", value)
+}

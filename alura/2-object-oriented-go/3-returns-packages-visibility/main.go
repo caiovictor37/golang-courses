@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"golang-courses/alura/2-object-oriented-go/bank/accounts"
+	"golang-courses/alura/2-object-oriented-go/3-returns-packages-visibility/accounts"
 )
 
 func main() {

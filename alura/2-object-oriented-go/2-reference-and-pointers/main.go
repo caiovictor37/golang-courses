@@ -10,7 +10,7 @@ type Account struct {
 }
 
 func (c *Account) Withdraw(value float64) string {
-	if value > 0 && value > c.balance {
+	if value < 0 || value > c.balance {
 		return "Can't withdraw this value"
 	}
 	c.balance -= value
