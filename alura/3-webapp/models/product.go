@@ -2,7 +2,6 @@ package models
 
 import (
 	db "golang-courses/alura/3-webapp/database"
-	"log"
 )
 
 type Product struct {
@@ -50,8 +49,16 @@ func CreateProduct(name, description string, price float64, quantity int) {
 	if err != nil {
 		panic(err.Error())
 	}
-	log.Println("Values:", name, description, price, quantity)
 	insertData.Exec(name, description, price, quantity)
+	defer db.Close()
+}
 
+func DeleteProduct(id string) {
+	db := db.ConnectIntoDatabase()
+	deleteData, err := db.Prepare("DELETE FROM products WHERE id = $1")
+	if err != nil {
+		panic(err.Error())
+	}
+	deleteData.Exec(id)
 	defer db.Close()
 }
