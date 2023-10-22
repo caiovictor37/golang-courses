@@ -12,9 +12,9 @@ type Product struct {
 	Quantity    int
 }
 
-func SelectProducts() []Product {
+func GetProducts() []Product {
 	db := db.ConnectIntoDatabase()
-	selectProducts, err := db.Query("SELECT * FROM products")
+	selectProducts, err := db.Query("SELECT * FROM products ORDER BY id")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -60,5 +60,43 @@ func DeleteProduct(id string) {
 		panic(err.Error())
 	}
 	deleteData.Exec(id)
+	defer db.Close()
+}
+
+func GetProduct(id string) Product {
+	db := db.ConnectIntoDatabase()
+	selectProduct, err := db.Query("SELECT * FROM products WHERE id = $1", id)
+	if err != nil {
+		panic(err.Error())
+	}
+	product := Product{}
+	for selectProduct.Next() {
+		var id, quantity int
+		var name, description string
+		var price float64
+
+		err := selectProduct.Scan(&id, &name, &description, &price, &quantity)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		product.Id = id
+		product.Name = name
+		product.Description = description
+		product.Price = price
+		product.Quantity = quantity
+	}
+
+	defer db.Close()
+	return product
+}
+
+func UpdateProduct(id int, name, description string, price float64, quantity int) {
+	db := db.ConnectIntoDatabase()
+	updateData, err := db.Prepare("UPDATE products SET name=$2, description=$3, price=$4, quantity=$5 WHERE id = $1")
+	if err != nil {
+		panic(err.Error())
+	}
+	updateData.Exec(id, name, description, price, quantity)
 	defer db.Close()
 }
