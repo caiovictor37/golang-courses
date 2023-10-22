@@ -306,3 +306,11 @@ func (c *Account) transferToAccount(account *Account, value float64) string {
 	c.balance -= value
 	return fmt.Sprintf("Transfer of $%.2f from "+c.name+" to "+account.name+" successful", value)
 }
+
+8.1 Import de packages em tempo de execução: adicionar um _ no início
+import (
+	"net/http"
+	"text/template"
+
+	_ "github.com/lib/pq" // Exemplo de import em tempo de execução
+)
