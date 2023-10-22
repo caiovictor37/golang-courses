@@ -1,10 +1,14 @@
-create table products (
+CREATE TABLE products (
 	id serial primary key,
 	name varchar,
 	description varchar,
 	price decimal,
 	quantity integer
 );
+
+CREATE USER alura_store WITH PASSWORD 'ExamplePsw321.';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO alura_store;
 
 insert into products 
 (name, description, price, quantity) values 
