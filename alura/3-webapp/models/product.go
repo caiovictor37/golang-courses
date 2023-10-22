@@ -1,6 +1,9 @@
 package models
 
-import db "golang-courses/alura/3-webapp/database"
+import (
+	db "golang-courses/alura/3-webapp/database"
+	"log"
+)
 
 type Product struct {
 	Id          int
@@ -39,4 +42,16 @@ func SelectProducts() []Product {
 	}
 	defer db.Close()
 	return products
+}
+
+func CreateProduct(name, description string, price float64, quantity int) {
+	db := db.ConnectIntoDatabase()
+	insertData, err := db.Prepare("INSERT INTO products (name, description, price, quantity) VALUES ($1, $2, $3, $4)")
+	if err != nil {
+		panic(err.Error())
+	}
+	log.Println("Values:", name, description, price, quantity)
+	insertData.Exec(name, description, price, quantity)
+
+	defer db.Close()
 }
