@@ -156,6 +156,12 @@ cap(sitesSlice) - Capacidade do slice (dobra quando passa do limite inicial)
 		accountNumber int
 		balance       float64
 	}
+	
+	type Account struct {
+		Customer                    customers.Customer
+		AgencyNumber, AccountNumber	int // outra forma de declaração de tipos
+		balance                     float64
+	}
 
 6.1 Modos de iniciar a struct:
 	account1 := Account{
