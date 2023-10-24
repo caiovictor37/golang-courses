@@ -320,3 +320,6 @@ import (
 
 	_ "github.com/lib/pq" // Exemplo de import em tempo de execução
 )
+
+9 Iniciando projeto fora do GOPATH
+go mod init <NOME_DO_PROJETO>
